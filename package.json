@@ -18,7 +18,12 @@
     "url": "https://github.com/goitacademy/parcel-project-template/issues"
   },
   "dependencies": {
-    "modern-normalize": "^1.1.0"
+    "caniuse-lite": "^1.0.30001502",
+    "modern-normalize": "^1.1.0",
+    "notiflix": "^3.2.6",
+    "slim-select": "^2.5.0",
+    "spinkit": "^2.0.1",
+    "sweetalert2": "^11.7.12"
   },
   "devDependencies": {
     "@parcel/transformer-sass": "^2.6.0",
