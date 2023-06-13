@@ -1,0 +1,14 @@
+.cat-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .cat-info img {
+    max-width: 600px;
+  }
+  
+  .cat-info h2,
+  .cat-info p {
+    margin: 15;
+  }
