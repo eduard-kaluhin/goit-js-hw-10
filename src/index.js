@@ -9,8 +9,8 @@ const catInfo = document.querySelector('.cat-info');
 
 function showLoader() {
   loader.style.display = 'block';
+  catInfo.classList.add('is-hidden');
 }
-
 
 function hideLoader() {
   loader.style.display = 'none';
@@ -47,7 +47,9 @@ function showCatInfo(imageUrl, breedName, description, temperament) {
   catInfo.appendChild(breedNameEl);
   catInfo.appendChild(descriptionEl);
   catInfo.appendChild(temperamentEl);
-  catInfo.style.display = 'block';
+  catInfo.classList.remove('is-hidden');
+  breedSelect.classList.remove('is-hidden');
+  
 
   Swal.fire({
     icon: 'info',
@@ -60,8 +62,14 @@ function handleBreedSelection(event) {
   const breedId = event.target.value;
   showLoader();
   hideError();
-
+ 
+  breedSelect.classList.add('is-hidden');
+  
+  
+  
+ 
   fetchCatByBreed(breedId)
+  
     .then(data => {
       hideLoader();
       showCatInfo(data.url, data.name, data.description, data.temperament);
@@ -69,33 +77,35 @@ function handleBreedSelection(event) {
     .catch(() => {
       hideLoader();
       showError();
+    })
+    .finally(() => {
+      breedSelect.disabled = false; // Добавьте эту строку
     });
 }
 
 function initApp() {
   showLoader();
   hideError();
-
+  catInfo.classList.add('is-hidden');
+  breedSelect.classList.add('is-hidden');
   fetchBreeds()
     .then(breeds => {
       hideLoader();
 
       breeds.forEach(breed => {
-        const option = document.createElement('option');
-        option.value = breed.id;
-        option.textContent = breed.name;
+        const option = new Option(breed.name, breed.id);
         breedSelect.appendChild(option);
       });
 
-      new SlimSelect('.breed-select');
-
+      new SlimSelect(breedSelect);
+      breedSelect.classList.remove('is-hidden'); // Добавьте эту строку
+      
       breedSelect.addEventListener('change', handleBreedSelection);
     })
     .catch(() => {
       hideLoader();
       showError();
     });
-    
 }
 
 initApp();
