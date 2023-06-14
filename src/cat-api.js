@@ -16,7 +16,11 @@ async function makeRequest(url) {
 
 export function fetchBreeds() {
   const url = 'https://api.thecatapi.com/v1/breeds';
-  return makeRequest(url);
+  return makeRequest(url)
+    .then(data => {
+      
+      return data;
+    });
 }
 
 export function fetchCatByBreed(breedId) {
@@ -25,6 +29,7 @@ export function fetchCatByBreed(breedId) {
     .then(data => {
       if (data.length > 0) {
         const breedData = data[0].breeds[0];
+       
         return {
           url: data[0].url,
           name: breedData.name,
